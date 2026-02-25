@@ -1,0 +1,5 @@
+{
+  "name": "ClawPhone",
+  "description": "Voice calling skill for OpenClaw. Your AI learned to dial.",
+  "requestFramePermissions": []
+}

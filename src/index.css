@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-claw-red: #E23838;
+  --color-claw-red-bright: #FF4444;
+  --color-claw-coral: #FF6B6B;
+  --color-claw-green: #4ADE80;
+  --color-claw-amber: #FFB74D;
+  --color-claw-void: #0A0A0C;
+  --color-claw-surface: #161619;
+  --color-claw-border: #222228;
+  --color-claw-text-primary: #EDEDEF;
+  --color-claw-text-secondary: #8A8A96;
+  --color-claw-text-tertiary: #5A5A66;
+
+  --font-geist: "Geist", sans-serif;
+  --font-geist-mono: "Geist Mono", monospace;
+  --font-instrument: "Instrument Sans", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-claw-void text-claw-text-primary font-instrument antialiased selection:bg-claw-red/30 selection:text-white;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-geist tracking-tight;
+  }
+}
+
+@layer utilities {
+  .noise-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.025;
+  }
+
+  .glow-radial {
+    background: radial-gradient(circle at center, rgba(226, 56, 56, 0.08) 0%, rgba(10, 10, 12, 0) 70%);
+  }
+
+  .magnetic-btn {
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .magnetic-btn:hover {
+    transform: translateY(-1px) scale(1.02);
+  }
+
+  .marquee-container {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: 1rem;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  }
+
+  .marquee-content {
+    display: flex;
+    flex-shrink: 0;
+    justify-content: space-around;
+    min-width: 100%;
+    gap: 1rem;
+    animation: scroll 40s linear infinite;
+  }
+
+  .marquee-content.reverse {
+    animation-direction: reverse;
+  }
+
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - 1rem));
+    }
+  }
+
+  .waveform-bar {
+    animation: bounce 1s ease-in-out infinite alternate;
+  }
+
+  @keyframes bounce {
+    0% { transform: scaleY(0.3); }
+    100% { transform: scaleY(1); }
+  }
+}
